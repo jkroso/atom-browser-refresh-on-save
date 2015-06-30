@@ -1,10 +1,12 @@
 {
   "name": "browser-refresh-on-save",
   "main": "plugin.coffee",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "reloads assets in the browser as soon as you save them",
   "repository": "https://github.com/jkroso/atom-browser-refresh-on-save.git",
   "license": "MIT",
-  "engines": {"atom": "1"},
+  "engines": {
+    "atom": "1"
+  },
   "dependencies": {}
 }
