@@ -6,7 +6,7 @@ path = require 'path'
 scripts = {
   js: 'location.reload()'
   css: """
-    [].slice.call(document.getElementsByTagName('link')).forEach(function(el){
+    [].forEach.call(document.getElementsByTagName('link'), function(el){
       var rel = el.getAttribute('rel')
       if (rel && 0 == rel.indexOf('style')) {
         el.parentNode.replaceChild(el.cloneNode(true), el)
@@ -61,6 +61,7 @@ error = (message) ->
   atom.notifications.addError("Browser Refresh on Save: #{message}")
 
 MacChromeCmd = """
+if (count window of application "Google Chrome") = 0 then return
 tell application "Google Chrome"
   set winref to a reference to (first window whose title does not start with "Developer Tools - ")
   set theTab to active tab of winref
