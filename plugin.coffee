@@ -31,12 +31,15 @@ plugin = {
   config:
     chrome:
       type: 'boolean'
-      default: true
-    vivaldi:
-      type: 'boolean'
+      order: 1
       default: true
     safari:
       type: 'boolean'
+      order: 2
+      default: true
+    vivaldi:
+      type: 'boolean'
+      order: 3
       default: true
     scripts:
       type: 'object'
