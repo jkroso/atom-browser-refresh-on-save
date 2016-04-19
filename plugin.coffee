@@ -31,9 +31,15 @@ plugin = {
   config:
     chrome:
       type: 'boolean'
+      order: 1
       default: true
     safari:
       type: 'boolean'
+      order: 2
+      default: true
+    vivaldi:
+      type: 'boolean'
+      order: 3
       default: true
     scripts:
       type: 'object'
@@ -78,6 +84,7 @@ tell application "Safari" to do JavaScript "{js}" in document 1
 commands = {
   darwin: {
     chrome: MacChromeCmd,
+    vivaldi: MacChromeCmd.replace(/Google Chrome/g, "Vivaldi"),
     safari: MacSafariCmd
   }
 }
@@ -95,6 +102,8 @@ refresh.darwin = (cmd, js) ->
 refreshAll = (js) ->
   if atom.config.get('browser-refresh-on-save.chrome')
     refresh('chrome', js)
+  if atom.config.get('browser-refresh-on-save.vivaldi')
+    refresh('vivaldi', js)
   if atom.config.get('browser-refresh-on-save.safari')
     refresh('safari', js)
 

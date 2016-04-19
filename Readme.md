@@ -12,6 +12,7 @@ When you save a file it tells the active tab in each of your selected browsers t
 
 - Chrome
 - Safari
+- Vivaldi
 
 ## Supported platforms
 
