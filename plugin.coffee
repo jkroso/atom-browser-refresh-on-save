@@ -54,12 +54,17 @@ plugin = {
   activate: (state) ->
     if platform not of refresh
       return error("#{platform} is not supported")
-    atom.workspace.observeTextEditors (editor) =>
-      sub = editor.onDidSave (event) ->
+
+    @subscriptions.push atom.commands.add '.item-views > atom-text-editor',
+      'browser-refresh-on-save:refresh': (event) =>
+        scripts = atom.config.get('browser-refresh-on-save.scripts')
+        refreshAll(scripts['js'])
+
+    @subscriptions.push atom.workspace.observeTextEditors (editor) =>
+      @subscriptions.push editor.onDidSave (event) ->
         scripts = atom.config.get('browser-refresh-on-save.scripts')
         type = path.extname(event.path).slice(1)
         if type of scripts then refreshAll(scripts[type])
-      @subscriptions.push(sub)
 
   deactivate: ->
     for sub in @subscriptions

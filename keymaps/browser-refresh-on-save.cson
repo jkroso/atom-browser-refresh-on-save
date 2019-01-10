@@ -1,0 +1,2 @@
+'.platform-darwin atom-workspace':
+  'cmd-ctrl-r': 'browser-refresh-on-save:refresh'
