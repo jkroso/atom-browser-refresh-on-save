@@ -15,17 +15,8 @@ scripts = {
   """
 }
 
-scripts['md'] =
-scripts['html'] =
-scripts['jade'] =
-scripts['json'] = scripts['js']
 scripts['styl'] = scripts['css']
-
-for key, value of scripts
-  scripts[key] = {
-    type: 'string'
-    default: value
-  }
+scripts['less'] = scripts['css']
 
 plugin = {
   config:
@@ -45,9 +36,6 @@ plugin = {
       type: 'boolean'
       order: 3
       default: true
-    scripts:
-      type: 'object'
-      properties: scripts
 
   subscriptions: []
 
@@ -55,16 +43,10 @@ plugin = {
     if platform not of refresh
       return error("#{platform} is not supported")
 
-    @subscriptions.push atom.commands.add '.item-views > atom-text-editor',
-      'browser-refresh-on-save:refresh': (event) =>
-        scripts = atom.config.get('browser-refresh-on-save.scripts')
-        refreshAll(scripts['js'])
-
     @subscriptions.push atom.workspace.observeTextEditors (editor) =>
       @subscriptions.push editor.onDidSave (event) ->
-        scripts = atom.config.get('browser-refresh-on-save.scripts')
         type = path.extname(event.path).slice(1)
-        if type of scripts then refreshAll(scripts[type])
+        refreshAll(if type in scripts then scripts[type] else scripts['js'])
 
   deactivate: ->
     for sub in @subscriptions
